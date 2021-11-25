@@ -4,6 +4,8 @@
 
 This sample application utilizes both PDFNet and PDFJS.Express to show a search and view workflow. This architecture is not meant for production, rather a starting point to how to work with the two SDKs. Changes you would want to consider would be implementing a real database, Authentication on server endpoints, and proper exception catching and handling. This sample should run as is, there are 3 sample document in the server_documents folder to act as a pseudo database. Feel free to drop your own documents into that directory for testing.
 
+![searchWorkflow](https://user-images.githubusercontent.com/8893098/143479296-ea939273-adb5-4f7b-a55b-5a01b962273f.gif)
+
 <h2>Dependencies</h2>
 
 <ul>
