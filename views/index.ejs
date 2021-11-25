@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>PDFNet Server & PDFJS.Express Sample</h1>
+
+    <article>
+      <h2>Instructions</h2>
+      <p>This sample shows how you can use the PDFTron PDFNet Server library to search through a set of documents for a given search term.
+        If a search result is found we list the documents and the relevant page. When you click on any of the links we open the PDFJS.Express viewer,
+        knowing the document in question and the search term we programtically populate the search results and apply the highlights.
+      </p>
+      <p>
+        This sample is setup as just a straight word search, there is support to utilize regex pattern matching among other customizations.
+        Please refer to the full API documentation for instructions.
+      </p>
+      <p>
+        Ideally you would sub out the local file store for a database and perform some filtering on your dataset to improve the performance.
+        Attaching some metadata to your files with classification terms can help from having to search through every document.
+      </p>
+      <p>
+        Some test words you can try against these samples documents are:
+        <ul>
+          <li>first</li>
+          <li>summary</li>
+          <li>business</li>
+        </ul>
+      </p>
+    </article>
+
+    <form action="/" method="post" >
+      <input class="form-control" name="searchTerm" type="text" placeholder="Search.." >
+      <input type="submit" >
+    </form>
+    <%  if (locals.searchResults && locals.searchResults.length > 0) { %>
+      <% for(result in locals.searchResults) { %>
+        <% for(item in locals.searchResults[result]) { %>
+          <% if (item == 0) { %>
+          <h1><a href="/viewer/'<%- locals.searchResults[result][item].name %>'?searchTerm=<%= locals.searchTerm %>"><%= locals.searchResults[result][item].name %></a></h1>
+          <% } %>
+          <p>
+            Page: <%= locals.searchResults[result][item].page %>
+          </p>
+        <% }%>
+      <% }%>
+    <% } %>
+  </body>
+</html>

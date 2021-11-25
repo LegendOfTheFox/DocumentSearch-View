@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<script src='/libs/webviewer.min.js'></script>
+
+<body>
+  <h1>Viewing Search Results</h1>
+
+  <div id='viewer' class="viewer" ></div>
+  
+  <script>
+      let fileName = '<%= locals.documentName %>';
+      fileName = fileName.substring(5, fileName.length -5);
+      const searchTerm = '<%= locals.searchTerm %>';
+
+      WebViewer({
+        path: '/libs', // path to the PDF.js Express'lib' folder on your server
+        licenseKey: 'Insert commercial license key here after purchase',
+        initialDoc: `http://localhost:3000/sendFile/${fileName}`,
+      }, document.getElementById('viewer'))
+        .then(instance => {
+          const { documentViewer, Annotations, Search } = instance.Core;
+
+          documentViewer.setSearchHighlightColors({
+            // setSearchHighlightColors accepts both Annotations.Color objects or 'rgba' strings
+            searchResult: new Annotations.Color(0, 0, 255, 0.5),
+            activeSearchResult: 'rgba(0, 255, 0, 0.5)'
+          });
+
+          documentViewer.addEventListener('documentLoaded', async () => {
+            const searchText = searchTerm;
+            
+            instance.UI.searchTextFull(searchText);
+          });
+        });
+  </script>
+</body>
+
+</html>
